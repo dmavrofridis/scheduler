@@ -1,7 +1,3 @@
-import {getCourseTerm} from '../components/Course.js';
-import React, { useState, useEffect } from 'react';
-
-
 const meetsPat = /^ *((?:M|Tu|W|Th|F)+) +(\d\d?):(\d\d) *[ -] *(\d\d?):(\d\d) *$/;
 const days = ['M', 'Tu', 'W', 'Th', 'F'];
 
@@ -22,7 +18,7 @@ export const daysOverlap = (days1, days2) => (
   );
   
   const courseConflict = (course1, course2) => (
-    getCourseTerm(course1) === getCourseTerm(course2)
+    course1.term === course2.term
     && timeConflict(course1, course2)
   );
   

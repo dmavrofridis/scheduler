@@ -1,7 +1,3 @@
-import Modal from './Modal';
-import {getCourseTerm, getCourseNumber} from './Course.js';
-
- 
 const ActiveModal = ({ selected }) => (
   <div>
       {
@@ -15,7 +11,7 @@ const ActiveModal = ({ selected }) => (
             <h2>You selected:</h2>
             { Object.entries(selected).map(([id, course]) => (
                   <div key={id}>
-                  <div className = "top"><b style = {{fontSize: "25px"}}>{getCourseTerm(course)} {" CS "} {getCourseNumber(course)}</b></div>
+                  <div className = "top"><b style = {{fontSize: "25px"}}>{course.term} {" CS "} {course.number}</b></div>
                       <div className = "middle">{course.title}</div> 
                       <div className = "bottom">Meeting Time: {course.meets}</div>
                       <hr></hr>

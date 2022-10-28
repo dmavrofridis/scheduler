@@ -37,7 +37,7 @@ const validateInput = (title, time) => {
   };
 
   const ActiveModalEditCourse = ({course, id}) => {
-    const [update, result] = useDbUpdate(`/courses/${course.id}`);
+    const [update, result] = useDbUpdate(`/schedule/courses/${course.term[0] + course.number}`);
     const [state, change] = useFormData(validateInput, course);
     const submit = (evt) => {
       evt.preventDefault();
