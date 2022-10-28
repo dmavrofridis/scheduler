@@ -1,6 +1,9 @@
+import { Link } from 'react-router-dom';
 import { hasConflict, timeParts } from '../utilities/times';
 import React, { useState, useEffect } from 'react';
 import { setData, useUserState } from '../utilities/firebase';
+import Modal from './Modal';
+import ActiveModalEditCourse from './ActiveModalEditCourse';
 
 const terms = { F: 'Fall', W: 'Winter', S: 'Spring'};
 
@@ -8,7 +11,7 @@ const toggle = (x, lst) => (
   lst.includes(x) ? lst.filter(y => y !== x) : [x, ...lst]
 );
 
-const getCourseMeetingData = course => {
+export const validateMeetingData = course => {
   const meets = prompt('Enter meeting data: MTuWThF hh:mm-hh:mm', course.meets);
   const valid = !meets || timeParts(meets).days;
   if (valid) return meets;
@@ -16,7 +19,7 @@ const getCourseMeetingData = course => {
   return null;
 };
 
-const reschedule = async (course, meets) => {
+export const reschedule = async (course, meets, title) => {
   if (meets && window.confirm(`Change ${course.id} to ${meets}?`)) {
     try {
       await setData(`/courses/${course.id}/meets`, meets);
@@ -30,6 +33,9 @@ export const Course = ({ course, selected, setSelected }) => {
   const isSelected = selected.includes(course);
   const isDisabled = !isSelected && hasConflict(course, selected);
   const [user] = useUserState();
+  const [open, setOpen] = useState(false);
+  const openModal = () => setOpen(true);
+  const closeModal = () => setOpen(false);
   const style = {
     backgroundColor: isDisabled? 'lightgrey' : isSelected ? 'lightgreen' : 'white'
   };
@@ -37,12 +43,15 @@ export const Course = ({ course, selected, setSelected }) => {
   return (
     <div className="card m-1 p-2" 
         style={style}
-        onClick={(isDisabled) ? null : () => setSelected(toggle(course, selected))}
-        onDoubleClick={!user ? null : () => reschedule(course, getCourseMeetingData(course))}>
+        onClick={(isDisabled) ? null : () => setSelected(toggle(course, selected))}>
       <div className="card-body">
         <div className="card-title">{ getCourseTerm(course) } CS { getCourseNumber(course) }</div>
         <div className="card-text">{ course.title }</div>
         <div className="card-text">{ course.meets }</div>
+        <button className="ms-auto btn btn-dark m-1 p-2" onClick={openModal}>Edit</button>
+        <Modal open={open} close={closeModal}>
+        <ActiveModalEditCourse course={course} />
+        </Modal>
       </div>
     </div>
   );

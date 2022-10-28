@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
-import { getDatabase, onValue, ref, set } from 'firebase/database';
+import { getDatabase, onValue, ref, set, update } from 'firebase/database';
+import { useCallback, useEffect, useState } from 'react';
+import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, onIdTokenChanged, signInWithPopup, signOut } from 'firebase/auth';
-import React, { useState, useEffect } from 'react';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -69,5 +69,21 @@ export const useUserState = () => {
   return [user];
 };
 
+const generateResult = (error) => {
+  const timestamp = Date.now();
+  const message = error?.message || `Updated course at: ${new Date(timestamp).toLocaleString()}`;
+  return { timestamp, error, message };
+};
+
+export const useDbUpdate = (path) => {
+  const [result, setResult] = useState();
+  const updateData = useCallback((value) => {
+    set(ref(database, path), value)
+    .then(() => setResult(generateResult()))
+    .catch((error) => setResult(generateResult(error)))
+  }, [database, path]);
+
+  return [updateData, result];
+};
 
 export { firebaseSignOut as signOut };
