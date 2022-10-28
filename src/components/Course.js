@@ -1,6 +1,6 @@
 import { hasConflict, timeParts } from '../utilities/times';
 import React, { useState, useEffect } from 'react';
-import { setData, signInWithGoogle, signOut, useUserState } from '../utilities/firebase';
+import { setData, useUserState } from '../utilities/firebase';
 
 const terms = { F: 'Fall', W: 'Winter', S: 'Spring'};
 
@@ -58,32 +58,14 @@ export const TermButton = ({term, setTerm, checked}) => (
   </>
 );
 
-const SignInButton = () => (
-  <button className="btn btn-secondary btn-sm"
-      onClick={() => signInWithGoogle()}>
-    Sign In
-  </button>
-);
-
-const SignOutButton = () => (
-  <button className="btn btn-secondary btn-sm"
-      onClick={() => signOut()}>
-    Sign Out
-  </button>
-);
-
 export const TermSelector = ({term, setTerm}) => {
-  const [user] = useUserState();
   return (
-    <div className="btn-toolbar justify-content-between">
       <div className="btn-group">
       { 
         Object.values(terms).map(
           value => <TermButton key={value} term={value} setTerm={setTerm} checked={value === term} />
         )
       }
-      </div>
-      { user ? <SignOutButton /> : <SignInButton /> }
     </div>
   );
 };
