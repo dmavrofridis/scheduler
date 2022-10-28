@@ -78,7 +78,7 @@ const generateResult = (error) => {
 export const useDbUpdate = (path) => {
   const [result, setResult] = useState();
   const updateData = useCallback((value) => {
-    set(ref(database, path), value)
+    update(ref(database, path), value)
     .then(() => setResult(generateResult()))
     .catch((error) => setResult(generateResult(error)))
   }, [database, path]);

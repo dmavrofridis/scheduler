@@ -1,5 +1,3 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import {getCourseTerm, getCourseNumber, reschedule} from './Course.js';
 import { useFormData } from '../utilities/useFormData';
 import { useDbUpdate } from '../utilities/firebase';
 
@@ -39,7 +37,7 @@ const validateInput = (title, time) => {
   };
 
   const ActiveModalEditCourse = ({course, id}) => {
-    const [update, result] = useDbUpdate(`/users/courses/${id}`);
+    const [update, result] = useDbUpdate(`/courses/${course.id}`);
     const [state, change] = useFormData(validateInput, course);
     const submit = (evt) => {
       evt.preventDefault();

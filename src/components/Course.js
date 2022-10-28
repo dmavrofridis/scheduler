@@ -1,6 +1,5 @@
-import { Link } from 'react-router-dom';
 import { hasConflict, timeParts } from '../utilities/times';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { setData, useUserState } from '../utilities/firebase';
 import Modal from './Modal';
 import ActiveModalEditCourse from './ActiveModalEditCourse';
@@ -48,7 +47,7 @@ export const Course = ({ course, selected, setSelected }) => {
         <div className="card-title">{ getCourseTerm(course) } CS { getCourseNumber(course) }</div>
         <div className="card-text">{ course.title }</div>
         <div className="card-text">{ course.meets }</div>
-        <button className="ms-auto btn btn-dark m-1 p-2" onClick={openModal}>Edit</button>
+        { user ? <button className="ms-auto btn btn-dark m-1 p-2" onClick={openModal}>Edit</button> : <></> }
         <Modal open={open} close={closeModal}>
         <ActiveModalEditCourse course={course} />
         </Modal>
