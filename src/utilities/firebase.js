@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
-import { getDatabase, onValue, ref, set, update } from 'firebase/database';
+import { getDatabase, connectDatabaseEmulator, onValue, ref, set, update } from 'firebase/database';
 import { useCallback, useEffect, useState } from 'react';
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, onIdTokenChanged, signInWithPopup, signOut } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, onIdTokenChanged, signInWithPopup, signOut, connectAuthEmulator } from 'firebase/auth';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -22,6 +22,13 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebase = initializeApp(firebaseConfig);
 const database = getDatabase(firebase);
+const auth = getAuth(firebase);
+
+if (process.env.REACT_APP_EMULATE) {
+  connectAuthEmulator(auth, "http://127.0.0.1:9099");
+  connectDatabaseEmulator(database, "127.0.0.1", 9000);
+  signInWithCredential(auth, GoogleAuthProvider.credential('{"sub": "qEvli4msW0eDz5mSVO6j3W7i8w1k", "email": "tester@gmail.com", "displayName":"Test User", "email_verified": true}'));
+}
 
 
 export const useData = (path, transform) => {
@@ -55,6 +62,10 @@ export const setData = (path, value) => (
 
 export const signInWithGoogle = () => {
   signInWithPopup(getAuth(firebase), new GoogleAuthProvider());
+};
+
+export const signInWithCredential = (credential) => {
+  signInWithPopup(getAuth(firebase), new GoogleAuthProvider().credential());
 };
 
 const firebaseSignOut = () => signOut(getAuth(firebase));
