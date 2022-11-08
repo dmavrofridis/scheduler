@@ -3,6 +3,16 @@ WARNING: Illegal reflective access by io.netty.util.internal.ReflectionUtil (fil
 WARNING: Please consider reporting this to the maintainers of io.netty.util.internal.ReflectionUtil
 WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
 WARNING: All illegal access operations will be denied in a future release
-00:29:29.173 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
-00:29:29.378 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
-00:29:30.053 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.NamespaceActor - scheduler-5cecc successfully activated FBKV (SurveyIdle(0)) wait: 193ms, init: 0ms
+11:13:10.606 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+11:13:10.807 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+11:13:11.543 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - scheduler-5cecc successfully activated FBKV (SurveyIdle(0)) wait: 182ms, init: 0ms
+11:13:20.269 [FirebaseWorkerPool-1-3] WARN com.firebase.core.persistence.backend.dummy.EmulatorMetadataPersistence - Multiple projectIds are not recommended in single project mode. Requested 
+namespace scheduler-5cecc-default-rtdb, but the emulator is configured for scheduler-5cecc. To 
+opt-out of single project mode add/set the single_project_mode: false property in 
+the firebase.json emulators config. 
+11:13:20.282 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - scheduler-5cecc-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 8ms, init: 0ms
+11:15:19.937 [Thread-0] INFO com.firebase.server.forge.App$ - Attempting graceful shutdown.
+11:15:19.947 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.Terminator$Terminator - 2 actors left to terminate: scheduler-5cecc-default-rtdb, scheduler-5cecc
+11:15:19.954 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - stopped namespace actor for scheduler-5cecc
+11:15:19.954 [NamespaceSystem-akka.actor.default-dispatcher-11] INFO com.firebase.core.namespace.NamespaceActor - stopped namespace actor for scheduler-5cecc-default-rtdb
+11:15:19.958 [Thread-0] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.
