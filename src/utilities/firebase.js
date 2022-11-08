@@ -2,7 +2,7 @@
 import { getDatabase, connectDatabaseEmulator, onValue, ref, set, update } from 'firebase/database';
 import { useCallback, useEffect, useState } from 'react';
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, onIdTokenChanged, signInWithPopup, signOut, connectAuthEmulator } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, onIdTokenChanged, signInWithPopup, signOut, connectAuthEmulator, signInWithCredential } from 'firebase/auth';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -62,10 +62,6 @@ export const setData = (path, value) => (
 
 export const signInWithGoogle = () => {
   signInWithPopup(getAuth(firebase), new GoogleAuthProvider());
-};
-
-export const signInWithCredential = (credential) => {
-  signInWithPopup(getAuth(firebase), new GoogleAuthProvider().credential());
 };
 
 const firebaseSignOut = () => signOut(getAuth(firebase));
